@@ -1,0 +1,31 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h5>home html</h5>
+
+<div>
+    <br>
+    <a href="{% url 'create-product' %}">Создать продукт</a><br><br>
+    <a href="{% url 'create-lesson' %}">Создать урок</a>
+    <br>
+    <div>
+        {% for product in products %}
+            <div>
+                <div style="background-color: #f0f0f0; padding: 10px; margin-bottom: 5px;">
+                    <span style="font-weight: bold;">Владелец:</span> {{ product.owner.name }}
+                </div>
+                <h5>{{ product.id }} -- <a href="{% url 'product' product.id %}">{{ product.name }}</a></h5>
+                <ul>
+                    {% for lesson in product.lesson_set.all %}
+                        <a href="{% url 'update-lesson' lesson.id %}">Edit</a>
+                        <a href="{% url 'delete-lesson' lesson.id %}">Delete</a>
+                        <li style="margin-left: 20px;">{{ lesson.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}
